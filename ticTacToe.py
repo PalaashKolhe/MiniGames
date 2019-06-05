@@ -91,6 +91,7 @@ def again(usr):
 start()
 
 while repeat:
+    # Initalize the variables
     grid = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     gridarray = [
         [grid[7], '|', grid[8], '|', grid[9]],
@@ -101,6 +102,7 @@ while repeat:
     ]
     win = 0
     turn = 1
+    # First grid view
     printgrid()
     # Input + Processing
     while win == 0:
@@ -116,7 +118,7 @@ while repeat:
             print('Player 1 won! ')
         else:
             print('Player 2 won! ')
+    # Again
     again(input('Again? '))
 
 ############################
-
