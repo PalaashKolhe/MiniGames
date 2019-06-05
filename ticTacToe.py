@@ -16,7 +16,7 @@ gridarray = [
 repeat = True
 wins = ((7,4,1),(8,5,2),(9,6,3),(4,5,6),(7,8,9),(1,2,3),(7,5,3),(1,5,9))
 win = 0
-turn = 0
+turn = 1
 
 ### Subroutines ###
 
@@ -55,7 +55,7 @@ def checkwin(player):
     if win == 0:
         for i in range(len(wins)):
             if grid[wins[i][0]] == grid[wins[i][1]] == grid[wins[i][2]] == mark:
-                win = 0
+                win = 1
                 break
     return win
 
@@ -65,19 +65,42 @@ Welcome to Tic-Tac-Toeeee !
 We hope you know how to play!
 ''')
 
+
 def main_make_move():
     global win, grid, gridarray, turn
-    move = int(input('Your move player',str(turn),': '))
+    #
+    if turn == 0:
+        print("Player 2's turn")
+    else:
+        print('Player',str(turn),"'s turn")
+    #
+    move = int(input('Your move: '))
     makemove(turn, move)
     printgrid()
     win = checkwin(turn)
-
+    if win == 0:
+        turn += 1
+        turn = turn % 2
+    else:
+        pass
 ###########################
 # ------ Main code ------ #
 ###########################
 start()
+printgrid()
+# Input + Processing
 while win == 0:
+
     if turn == 0:
+        main_make_move()
+    else:
+        main_make_move()
 
-
+# Output
+if win == 1:
+    if turn == 1:
+        print('Player 1 won! ')
+    else:
+        print('Player 2 won! ')
+############################
 
