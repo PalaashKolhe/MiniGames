@@ -63,14 +63,14 @@ def chkSpot(ship, length, turn):
                 for j in range(length):
                     if gridPlayer1[i][int(ship[0][1]) + j] in ('A', 'B', 'C', 'D', 'E'):
                         ship = input("These co-ordinates are filled! Enter different co-ordinates: ")
-                        return chkSpot(ship, length, turn)
+                        return chkSpot(chkSpaces((ship, length, turn), length, turn))
                     else:
                         pass
             elif gridPlayer1[i][0] == ship[0][0] and gridPlayer1[i + length - 1][0] == ship[1][0]:
                 for j in range(length):
                     if gridPlayer1[i + j][int(ship[0][1])] in ('A', 'B', 'C', 'D', 'E'):
                         ship = input("These co-ordinates are filled! Enter different co-ordinates: ")
-                        return chkSpot(ship, length, turn)
+                        return chkSpot(chkSpaces((ship, length, turn), length, turn))
                     else:
                         pass
         return ship
@@ -81,14 +81,14 @@ def chkSpot(ship, length, turn):
                 for j in range(length):
                     if gridPlayer2[i][int(ship[0][1]) + j] in ('A', 'B', 'C', 'D', 'E'):
                         ship = [random.choice(positions), '-', random.choice(letters)]
-                        return chkSpot(ship, length, turn)
+                        return chkSpot(chkSpaces((ship, length, turn), length, turn))
                     else:
                         pass
             elif gridPlayer2[i][0] == ship[0][0]:
                 for j in range(length):
                     if gridPlayer2[i + j][int(ship[0][1])] in ('A', 'B', 'C', 'D', 'E'):
                         ship = [random.choice(positions), '-', random.choice(letters)]
-                        return chkSpot(ship, length, turn)
+                        return chkSpot(chkSpaces((ship, length, turn), length, turn))
                     else:
                         pass
         return ship
@@ -102,7 +102,7 @@ def displayGrid():
     for i in range(len(gridPlayer2)):
         print(' | '.join(gridPlayer2[i]))
 
-def chkSpaces(ship, length, turn):
+def chkSpaces(ship, length, turn): ### Comes first
     if turn == 'human':
         if ship[0][0] == ship[1][0]:
             if int(ship[0][1]) > (11 - length):
@@ -150,24 +150,7 @@ for i in range(len(letters)):
 
 ### MAIN CODE STARTS HERE ###
 ### Inputs
-'''
-carrier1 = input('Enter co-ordinates from start to finish (Eg. A1-A5) of where you want to place the aircraft carrier (AAAAA): ')
-carrier1 = turnToList(carrier1)
-shipPlacement(carrier1, 5, 'A', 'human')
 
-batship1 = chkSpot(input('Enter co-ordinates from start to finish (Eg. A1-D1) of where you want to place the battleship (BBBB): '), 4, 'human')
-shipPlacement(batship1, 4, 'B', 'human')
-
-cruiser1 = chkSpot(input('Enter co-ordinates from start to finish (Eg. A1-A3) of where you want to place the cruiser (CCC): '), 3, 'human')
-shipPlacement(cruiser1, 3, 'C', 'human')
-
-sub1 = chkSpot(input('Enter co-ordinates from start to finish (Eg. D3-F3) of where you want to place the submarine (DDD): '), 3, 'human')
-shipPlacement(sub1, 3, 'D', 'human')
-
-destroyer1 = chkSpot(input('Enter co-ordinates from start to finish (Eg. A1-A2) of where you want to place the destroyer (EE): '), 2, 'human')
-shipPlacement(destroyer1, 2, 'E', 'human')
-displayGrid()
-'''
 ### Processing
 ## AI - Computer choosing its positions
 
