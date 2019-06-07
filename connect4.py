@@ -1,15 +1,13 @@
 
 #### - Subroutines - ####
-def createborder(c_length):
-    global c_border
+def createborder(c_length,c_border):
     i = 0
     while i != c_length:
         c_border.append('-----')
         i += 1
     c_border[0] = ''.join(c_border)
 
-def creategrid(c_length, c_height, c_grid):
-    global c_gridarray, c_grid
+def creategrid(c_length, c_height, c_grid,c_gridarray):
     #
     for i in range(c_length * c_height):
         c_grid.append(0)
@@ -19,8 +17,7 @@ def creategrid(c_length, c_height, c_grid):
         for k in range(c_length):
             c_gridarray[i].append(' ')
 
-def printgrid():
-    global c_length, c_grid, c_gridarray,c_border
+def printgrid(c_length, c_grid, c_gridarray,c_border):
     ind = []
     print('\n')
     for i in range(c_length):
@@ -32,8 +29,7 @@ def printgrid():
         print(c_gridarray[i])
     print(c_border[0])
 
-def makemove(player, column):
-    global c_gridarray, c_length, c_height, moveX, moveY
+def makemove(player, column,c_gridarray, c_length, c_height):
     done = 0
     while done == 0:
         for i in range(c_height-1,-1,-1):
@@ -46,6 +42,7 @@ def makemove(player, column):
 
                 return i, column -1 # to check if c_win
                 break
+    return moveX, moveY
 
 def checkwin(player, Y, X):
     global c_win
@@ -87,11 +84,10 @@ def checkwin(player, Y, X):
                     break
     return c_win
 
-def main_makemove(player):
-    global X, Y, c_turn, c_win
+def main_makemove(player,c_gridarray, c_length, c_height):
     print('Player',str(player),"'s c_turn")
     col = int(input('Which column would you like to place the chip player: '))
-    X, Y = makemove(player,col)
+    X, Y = makemove(player,col,c_gridarray, c_length, c_height)
     printgrid()
     c_win = checkwin(player, X, Y)
     if c_win == 1:
@@ -99,7 +95,7 @@ def main_makemove(player):
     else:
         c_turn += 1
         c_turn = c_turn%2 # this way I can have 1 function to get both the players moves
-
+    return X, Y, c_turn, c_win
 
 ##### - Main Code - #####
 '''

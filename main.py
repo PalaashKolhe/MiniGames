@@ -12,6 +12,7 @@ c_grid = []
 c_border = []
 c_turn = 0
 c_win = 0
+    # Tic-Tac-Toe
 
 ## Subroutines
 def intro():
@@ -31,14 +32,22 @@ def main_menu():
 
 m_game = main_menu()
 if m_game == 1:
+
     # Setup the Connect 4 grid
+
     c_length = int(input('Length of Connect-4 grid: '))
     c_height = int(input('Height of Connect-4 grid: '))
-    connect4.creategrid(c_length, c_height)
+    connect4.creategrid(c_length, c_height,c_grid,c_gridarray)
     if len(c_border) == 0:
-        connect4.createborder(c_length)
-    connect4.printgrid()
+        connect4.createborder(c_length,c_border)
+    connect4.printgrid(c_length, c_grid, c_gridarray,c_border)
+
     # Gameplay
+
+    while c_win == 0:
+        if c_turn == 0:
+            X, Y, c_turn, c_win = connect4.main_makemove(1)
+
 
 
 if m_game == 2:
