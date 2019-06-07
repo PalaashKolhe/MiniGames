@@ -1,121 +1,127 @@
-#### - Variables - ####
-gridarray = []
-grid = []
-length = 8
-height = 5
-turn = 0
-win = 0
-#### - Subroutines - ####
 
-def creategrid(length, height):
-    global gridarray, grid
+#### - Subroutines - ####
+def createborder(c_length):
+    global c_border
+    i = 0
+    while i != c_length:
+        c_border.append('-----')
+        i += 1
+    c_border[0] = ''.join(c_border)
+
+def creategrid(c_length, c_height, c_grid):
+    global c_gridarray, c_grid
     #
-    for i in range(length * height):
-        grid.append(0)
+    for i in range(c_length * c_height):
+        c_grid.append(0)
     #
-    for i in range(height):
-        gridarray.append([])
-        for k in range(length):
-            gridarray[i].append(' ')
+    for i in range(c_height):
+        c_gridarray.append([])
+        for k in range(c_length):
+            c_gridarray[i].append(' ')
 
 def printgrid():
-    global length, grid, gridarray
+    global c_length, c_grid, c_gridarray,c_border
     ind = []
     print('\n')
-    for i in range(length):
+    for i in range(c_length):
         ind.append(str(i+1))
     ind = ' || '.join(ind)
-    print('----------------------------------------')
+    print(c_border[0])
     print('|',ind,'|')
-    for i in range(len(gridarray)):
-        print(gridarray[i])
-    print('----------------------------------------')
+    for i in range(len(c_gridarray)):
+        print(c_gridarray[i])
+    print(c_border[0])
 
 def makemove(player, column):
-    global gridarray, length, height, moveX, moveY
+    global c_gridarray, c_length, c_height, moveX, moveY
     done = 0
     while done == 0:
-        for i in range(height-1,-1,-1):
-            if gridarray[i][column-1] == ' ':
+        for i in range(c_height-1,-1,-1):
+            if c_gridarray[i][column-1] == ' ':
                 if player == 1:
-                    gridarray[i][column-1] = 'X'
+                    c_gridarray[i][column-1] = 'X'
                 else:
-                    gridarray[i][column-1] = 'O'
+                    c_gridarray[i][column-1] = 'O'
                 done = 1
 
-                return i, column -1 # to check if win
+                return i, column -1 # to check if c_win
                 break
 
 def checkwin(player, Y, X):
-    global win
-    win = 0
+    global c_win
+    c_win = 0
     if player == 1:
         mark = 'X'
     else:
         mark = 'O'
     # Horizontal
-    if win == 0:
-        for k in range(height):
-            for i in range(3, length):
-                if gridarray[k][i] == gridarray[k][i - 1] == gridarray[k][i - 2] == gridarray[k][i - 3]==mark:
-                    win = 1
+    if c_win == 0:
+        for k in range(c_height):
+            for i in range(3, c_length):
+                if c_gridarray[k][i] == c_gridarray[k][i - 1] == c_gridarray[k][i - 2] == c_gridarray[k][i - 3]==mark:
+                    c_win = 1
                     break
-        for k in range(height):
-            for g in range(0,length - 3):
-                if gridarray[k][g] == gridarray[k][g + 1] == gridarray[k][g + 2] == gridarray[k][g + 3]==mark:
-                    win = 1
+        for k in range(c_height):
+            for g in range(0,c_length - 3):
+                if c_gridarray[k][g] == c_gridarray[k][g + 1] == c_gridarray[k][g + 2] == c_gridarray[k][g + 3]==mark:
+                    c_win = 1
                     break
     # Vertical
-    if win == 0:
+    if c_win == 0:
         if Y <= 1:
-            if gridarray[Y][X]==gridarray[Y+1][X]==gridarray[Y+2][X]==gridarray[Y+3][X] == mark:
-                win = 1
+            if c_gridarray[Y][X]==c_gridarray[Y+1][X]==c_gridarray[Y+2][X]==c_gridarray[Y+3][X] == mark:
+                c_win = 1
     # / direction
-    if win == 0:
-        for j in range(height - 3):
-            for i in range(3, length):
-                if gridarray[j][i] == gridarray[j+1][i-1] == gridarray[j+2][i-2]==gridarray[j+3][i-3] == mark:
-                    win = 1
+    if c_win == 0:
+        for j in range(c_height - 3):
+            for i in range(3, c_length):
+                if c_gridarray[j][i] == c_gridarray[j+1][i-1] == c_gridarray[j+2][i-2]==c_gridarray[j+3][i-3] == mark:
+                    c_win = 1
                     break
     # \ direction
-    if win == 0:
-        for j in range(height-3):
-            for i in range(length-3):
-                if gridarray[j][i] == gridarray[j+1][i+1] == gridarray[j+2][i+2]==gridarray[j+3][i+3] == mark:
-                    win = 1
+    if c_win == 0:
+        for j in range(c_height-3):
+            for i in range(c_length-3):
+                if c_gridarray[j][i] == c_gridarray[j+1][i+1] == c_gridarray[j+2][i+2]==c_gridarray[j+3][i+3] == mark:
+                    c_win = 1
                     break
-    return win
+    return c_win
+
 def main_makemove(player):
-    global X, Y, turn, win
-    print('Player',str(player),"'s turn")
+    global X, Y, c_turn, c_win
+    print('Player',str(player),"'s c_turn")
     col = int(input('Which column would you like to place the chip player: '))
     X, Y = makemove(player,col)
     printgrid()
-    win = checkwin(player, X, Y)
-    if win == 1:
-        win = player
+    c_win = checkwin(player, X, Y)
+    if c_win == 1:
+        c_win = player
     else:
-        turn += 1
-        turn = turn%2 # this way I can have 1 function to get both the players moves
+        c_turn += 1
+        c_turn = c_turn%2 # this way I can have 1 function to get both the players moves
 
 
 ##### - Main Code - #####
+'''
 # Setup
-creategrid(length,height)
+c_length = int(input('Length: '))
+c_height = int(input('Heigth: '))
+creategrid(c_length,c_height)
+if len(c_border) == 0:
+    createborder(c_length)
 printgrid()
-
 # Gameplay
-
-while win == 0:
-    if turn == 0:
+while c_win == 0:
+    if c_turn == 0:
         main_makemove(1)
     else:
         main_makemove(2)
 # Output
-if win != 0:
-    if win == 1:
+if c_win != 0:
+    if c_win == 1:
         print('Player 1 wins! ')
     else:
         print('Player 2 wins! ')
 
-###################################### DONE !!! ##############
+############## DONE !!! ##############
+'''
