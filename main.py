@@ -3,8 +3,12 @@ MiniGames
 Shaishav Shah & Palaash Kolhe
 2019-06-06
 '''
-import connect4
-## Variables
+import connect4, ticTacToe
+
+###########################
+# ------ Variables ------ #
+###########################
+
 game = 1
     # Connect 4 variables
 c_gridarray = []
@@ -13,8 +17,25 @@ c_border = []
 c_turn = 0
 c_win = 0
     # Tic-Tac-Toe
+t_grid = ['0','1','2','3','4','5','6','7','8','9']
+t_gridarray = [
+    [t_grid[7], '|',t_grid[8], '|',t_grid[9]],
+    ['----------'],
+    [t_grid[4], '|',t_grid[5], '|',t_grid[6]],
+    ['----------'],
+    [t_grid[1], '|',t_grid[2], '|',t_grid[3]]
+]
+t_wins = ((7,4,1),(8,5,2),(9,6,3),(4,5,6),(7,8,9),(1,2,3),(7,5,3),(1,5,9))
+t_win = 0
+t_turn = 1
+    # Battle ship stuff
 
-## Subroutines
+
+###########################
+# ----- Subroutines ----- #
+###########################
+
+
 def intro():
     print('''
 Welcome to MiniGame! 
@@ -28,10 +49,12 @@ def main_menu():
     m_game = int(input('>>> '))
     return m_game
 
-#### Main Code ####
+###########################
+# ------ Main code ------ #
+###########################
 
 m_game = main_menu()
-if m_game == 1:
+if m_game == 1: # CONNECT-4
 
     # Setup the Connect 4 grid
 
@@ -46,12 +69,32 @@ if m_game == 1:
 
     while c_win == 0:
         if c_turn == 0:
-            X, Y, c_turn, c_win = connect4.main_makemove(1)
+            X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn, c_grid, c_border)
+        else:
+            X, Y, c_turn, c_win = connect4.main_makemove(2, c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border)
+
+    # Output
+
+    if c_win != 0:
+        if c_win == 1:
+            print('Player 1 wins! ')
+        else:
+            print('Player 2 wins! ')
+
+    # Add something for again for just connect 4
+
+if m_game == 2: # TIC-TAC-TOE
+    #
+    ticTacToe.start()
+    ticTacToe.printgrid(t_gridarray, t_grid)
+    #
+    while t_win == 0:
+        if t_turn == 1:
+            t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
+        else:
+            t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
 
 
-
-if m_game == 2:
-    pass
 if m_game == 3:
     pass
 

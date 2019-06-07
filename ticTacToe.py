@@ -5,23 +5,11 @@ Tic-Tac-Toeeeeeee
 '''
 ### Variables ###
 
-grid = ['0','1','2','3','4','5','6','7','8','9']
-gridarray = [
-    [grid[7], '|',grid[8], '|',grid[9]],
-    ['----------'],
-    [grid[4], '|',grid[5], '|',grid[6]],
-    ['----------'],
-    [grid[1], '|',grid[2], '|',grid[3]]
-]
-repeat = True
-wins = ((7,4,1),(8,5,2),(9,6,3),(4,5,6),(7,8,9),(1,2,3),(7,5,3),(1,5,9))
-win = 0
-turn = 1
+
 
 ### Subroutines ###
 
-def makemove(player,num):
-    global grid, gridarray
+def makemove(player,num,grid,gridarray):
     if player == 1:
         mark = 'X'
     else:
@@ -30,8 +18,7 @@ def makemove(player,num):
     grid[num] = mark
     #
 
-def printgrid():
-    global gridarray, grid
+def printgrid(gridarray, grid):
     gridarray = [
         [grid[7], '|', grid[8], '|', grid[9]],
         ['----------'],
@@ -44,9 +31,7 @@ def printgrid():
         print(' '.join(gridarray[i]))
     print('\n')
 
-def checkwin(player):
-    global win, grid, gridarray
-    win = 0
+def checkwin(player, win, grid, gridarray, wins):
     if player == 1:
         mark = 'X'
     else:
@@ -65,8 +50,7 @@ Welcome to Tic-Tac-Toeeee !
 We hope you know how to play!
 ''')
 
-def main_make_move():
-    global win, grid, gridarray, turn
+def main_make_move(win, grid, gridarray, turn, wins):
     #
     if turn == 0:
         print("Player 2's turn")
@@ -74,14 +58,15 @@ def main_make_move():
         print('Player',str(turn),"'s turn")
     #
     move = int(input('Your move: '))
-    makemove(turn, move)
-    printgrid()
-    win = checkwin(turn)
-    if win == 0:
+    makemove(turn, move,grid,gridarray)
+    printgrid(gridarray,grid)
+    win_1 = checkwin(turn, win, grid, gridarray, wins)
+    if win_1 == 0:
         turn += 1
         turn = turn % 2
     else:
         pass
+    return win_1, turn
 
 def check_if_spot_open(num): # Doesnt work idk why
 
@@ -95,6 +80,7 @@ def check_if_spot_open(num): # Doesnt work idk why
 ###########################
 # ------ Main code ------ #
 ###########################
+'''
 start()
 printgrid()
 # Input + Processing
@@ -112,5 +98,5 @@ if win == 1:
     else:
         print('Player 2 won! ')
 ############################
-
+'''
 

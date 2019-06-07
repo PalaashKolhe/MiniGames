@@ -44,9 +44,7 @@ def makemove(player, column,c_gridarray, c_length, c_height):
                 break
     return moveX, moveY
 
-def checkwin(player, Y, X):
-    global c_win
-    c_win = 0
+def checkwin(player, Y, X, c_win, c_height, c_length, c_gridarray):
     if player == 1:
         mark = 'X'
     else:
@@ -84,12 +82,12 @@ def checkwin(player, Y, X):
                     break
     return c_win
 
-def main_makemove(player,c_gridarray, c_length, c_height):
+def main_makemove(player,c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border):
     print('Player',str(player),"'s c_turn")
     col = int(input('Which column would you like to place the chip player: '))
     X, Y = makemove(player,col,c_gridarray, c_length, c_height)
-    printgrid()
-    c_win = checkwin(player, X, Y)
+    printgrid(c_length, c_grid, c_gridarray,c_border)
+    c_win = checkwin(player,Y, X, c_win, c_height, c_length, c_gridarray)
     if c_win == 1:
         c_win = player
     else:
