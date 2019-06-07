@@ -1,6 +1,6 @@
 '''
 MiniGames
-Shaishav Shah & Palaash Kohle
+Shaishav Shah & Palaash Kolhe
 2019-06-06
 '''
 import connect4
