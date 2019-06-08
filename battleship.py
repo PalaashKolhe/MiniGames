@@ -187,11 +187,11 @@ def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,
                 return ship
 
 def displayGrid():
-    print('''''')
+    print('''Your Move -''')
     for i in range(len(gridPlayer1)):
         print(' | '.join(gridPlayer1[i]))
 
-    print('''''')
+    print('''Computer's Move -''')
     for i in range(len(gridPlayer2)):
         print(' | '.join(gridPlayer2[i]))
 
@@ -226,6 +226,23 @@ def chkSpaces(ship, length, turn): ## number of blank places
                         ship[0] = random.choice(positions)
                         return chkSpaces(ship, length, 'ai')
         return ship
+
+def chkPosition(usr):
+    if usr not in positions:
+        usr = input("Please enter valid co-ordinates: ")
+        return chkPosition(usr)
+    else:
+        return usr
+
+def chk10(coord):
+    try:
+        coord[2]
+        if coord[1] == '1' and coord[2] == '0':
+            coord[1] = '10'
+            coord.pop(2)
+            return coord
+    except IndexError:
+        return coord
 ## Creating array to check for user input
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']
 numbers = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
@@ -270,41 +287,59 @@ shipPlacement(sub2, 3, 'D', gridPlayer2)
 destroyer2 = chkSpot(chkSpaces([random.choice(positions), '-',  random.choice(letters)], 2, 'ai'), 2, 'ai')
 shipPlacement(destroyer2, 2, 'E', gridPlayer2)
 '''
-#### GAMEPLAY STARTS HERE ###
+#### GAMEPLAY STARTS HERE ####
+usrArray = []
+compArray = []
+
+usrPoints = 0
+compPoints = 0
+turn = 0
+
 hit = []
 
-usrMove = list(input("Attack co-ordinates (Eg. A1): "))
+usrMove = chk10(list(chkPosition(input("Attack co-ordinates (Eg. A1): "))))
+usrArray.append(''.join(usrMove))
 
 if hit == '':
-    compMove = list(random.choices(positions))
-else:
-    compMove = [hit[0], hit[1] + 1]
+    compMove = chk10(list(''.join(random.choices(positions))))
+    compArray.append(''.join(compMove))
+elif turn == 0:
+    compMove = hit[0], int(hit[1]) + 1
+    compArray.append(''.join(compMove))
+    hit = []
+    turn = 1
+elif turn == 1:
+    compMove = hit[0], int(hit[1]) - 2
+    compArray.append(''.join(compMove))
+    hit = []
 
-for i in range(len(gridPlayer2)): ## Usr Move
+print(usrArray)
+print(compArray)
+
+for i in range(len(gridPlayer2)): ## Usr move
     if usrMove[0] == gridPlayer2[i][0]:
         for j in range(len(gridPlayer2[i])):
             if int(usrMove[1]) == j:
                 gridPlayer1[i][j] = 'X' ### 'X' for usr attack
                 gridPlayer2[i][j] = 'O' ### 'O' for computers grid being attacked
+                displayGrid()
                 if gridPlayer2[i][j] in ('A', 'B', 'D', 'C', 'E'):
                     print('HIT')
+                    usrPoints += 1
                 else:
                     print('MISS')
-                displayGrid()
 
-for i in range(len(gridPlayer1)) ## AI move
+for i in range(len(gridPlayer1)): ## AI move
     if compMove[0] == gridPlayer1[i][0]:
         for j in range(len(gridPlayer1[i])):
             if int(compMove[1]) == j:
                 gridPlayer2[i][j] = 'X'  ### 'X' for comp attack
                 gridPlayer1[i][j] = 'O'  ### 'O' for users grid being attacked
-                if gridPlayer1[i][j] in ('A', 'B', 'C', 'D', 'E'):
-                    hit = [gridPlayer1[i][0], j]
-                elif hit != '':
-                    hit = [gridPlayer1[hit[0]], [hit[1] - 1]]
-
-                else:
-                    hit = 0
                 displayGrid()
+                if gridPlayer1[i][j] in ('A', 'B', 'C', 'D', 'E'):
+                    compPoints += 1
+                    hit.append(gridPlayer1[i][0], j)
+                else:
+                    print('MISS')
 
 ### Outputs
