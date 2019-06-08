@@ -235,7 +235,7 @@ for i in range(len(letters)):
     for j in range(len(numbers)):
         var = str(letters[i]) + str(numbers[j])
         positions.append(var)
-
+'''
 ### MAIN CODE STARTS HERE ###
 ### Inputs
 carrier1 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-A5) of where you want to place the aircraft carrier (AAAAA): ')), 5), 5, 'human'), 5, 'human')
@@ -269,6 +269,42 @@ shipPlacement(sub2, 3, 'D', gridPlayer2)
 
 destroyer2 = chkSpot(chkSpaces([random.choice(positions), '-',  random.choice(letters)], 2, 'ai'), 2, 'ai')
 shipPlacement(destroyer2, 2, 'E', gridPlayer2)
+'''
+#### GAMEPLAY STARTS HERE ###
+hit = []
+
+usrMove = list(input("Attack co-ordinates (Eg. A1): "))
+
+if hit == '':
+    compMove = list(random.choices(positions))
+else:
+    compMove = [hit[0], hit[1] + 1]
+
+for i in range(len(gridPlayer2)): ## Usr Move
+    if usrMove[0] == gridPlayer2[i][0]:
+        for j in range(len(gridPlayer2[i])):
+            if int(usrMove[1]) == j:
+                gridPlayer1[i][j] = 'X' ### 'X' for usr attack
+                gridPlayer2[i][j] = 'O' ### 'O' for computers grid being attacked
+                if gridPlayer2[i][j] in ('A', 'B', 'D', 'C', 'E'):
+                    print('HIT')
+                else:
+                    print('MISS')
+                displayGrid()
+
+for i in range(len(gridPlayer1)) ## AI move
+    if compMove[0] == gridPlayer1[i][0]:
+        for j in range(len(gridPlayer1[i])):
+            if int(compMove[1]) == j:
+                gridPlayer2[i][j] = 'X'  ### 'X' for comp attack
+                gridPlayer1[i][j] = 'O'  ### 'O' for users grid being attacked
+                if gridPlayer1[i][j] in ('A', 'B', 'C', 'D', 'E'):
+                    hit = [gridPlayer1[i][0], j]
+                elif hit != '':
+                    hit = [gridPlayer1[hit[0]], [hit[1] - 1]]
+
+                else:
+                    hit = 0
+                displayGrid()
 
 ### Outputs
-displayGrid()
