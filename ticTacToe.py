@@ -46,7 +46,7 @@ def checkwin(player, win, grid, gridarray, wins):
 
 def start():
     print('''
-Welcome to Tic-Tac-Toeeee !
+Welcome to Tic-Tac-Toe !
 We hope you know how to play!
 ''')
 

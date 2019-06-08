@@ -48,6 +48,9 @@ def main_menu():
     ''')
     m_game = int(input('>>> '))
     return m_game
+def again_for_every_game(usr):
+    pass
+
 
 ###########################
 # ------ Main code ------ #
@@ -93,7 +96,13 @@ if m_game == 2: # TIC-TAC-TOE
             t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
         else:
             t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
-
+    # Output
+    if t_win == 1:
+        if t_turn == 1:
+            print('Player 1 wins!')
+        else:
+            print('Player 2 won!')
+    # Add something to do it again.
 
 if m_game == 3:
     pass
