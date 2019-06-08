@@ -9,7 +9,8 @@ import connect4, ticTacToe
 # ------ Variables ------ #
 ###########################
 
-game = 1
+game = 0
+main_game = 0
     # Connect 4 variables
 c_gridarray = []
 c_grid = []
@@ -48,62 +49,72 @@ def main_menu():
     ''')
     m_game = int(input('>>> '))
     return m_game
-def again_for_every_game(usr):
-    pass
-
-
+def again_for_every_game():
+    global game
+    usr = input('''
+1. Play this game again
+2. Switch to another game
+3. Exit
+>>>''')
+    if usr == '1':
+        pass
+    elif usr == '2':
+        game = 0
+    elif usr == '3':
+        game == 999
 ###########################
 # ------ Main code ------ #
 ###########################
+while main_game == 0: #### DOESN'T WORK
+    game = main_menu()
+    while game == 1: # CONNECT-4
+         # Setup the Connect 4 grid
 
-m_game = main_menu()
-if m_game == 1: # CONNECT-4
+        c_length = int(input('Length of Connect-4 grid: '))
+        c_height = int(input('Height of Connect-4 grid: '))
+        connect4.creategrid(c_length, c_height,c_grid,c_gridarray)
+        if len(c_border) == 0:
+            connect4.createborder(c_length,c_border)
+        connect4.printgrid(c_length, c_grid, c_gridarray,c_border)
 
-    # Setup the Connect 4 grid
+        # Gameplay
 
-    c_length = int(input('Length of Connect-4 grid: '))
-    c_height = int(input('Height of Connect-4 grid: '))
-    connect4.creategrid(c_length, c_height,c_grid,c_gridarray)
-    if len(c_border) == 0:
-        connect4.createborder(c_length,c_border)
-    connect4.printgrid(c_length, c_grid, c_gridarray,c_border)
+        while c_win == 0:
+            if c_turn == 0:
+                X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn, c_grid, c_border)
+            else:
+                X, Y, c_turn, c_win = connect4.main_makemove(2, c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border)
 
-    # Gameplay
+        # Output
 
-    while c_win == 0:
-        if c_turn == 0:
-            X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn, c_grid, c_border)
-        else:
-            X, Y, c_turn, c_win = connect4.main_makemove(2, c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border)
+        if c_win != 0:
+            if c_win == 1:
+                print('Player 1 wins! ')
+            else:
+                print('Player 2 wins! ')
 
-    # Output
+        again_for_every_game()
 
-    if c_win != 0:
-        if c_win == 1:
-            print('Player 1 wins! ')
-        else:
-            print('Player 2 wins! ')
+    while game == 2: # TIC-TAC-TOE
+        #
+        ticTacToe.start()
+        ticTacToe.printgrid(t_gridarray, t_grid)
+        #
+        while t_win == 0:
+            if t_turn == 1:
+                t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
+            else:
+                t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
+        # Output
+        if t_win == 1:
+            if t_turn == 1:
+                print('Player 1 wins!')
+            else:
+                print('Player 2 won!')
+        # Add something to do it again.
 
-    # Add something for again for just connect 4
+    while game == 3:
+        pass
+        break
 
-if m_game == 2: # TIC-TAC-TOE
-    #
-    ticTacToe.start()
-    ticTacToe.printgrid(t_gridarray, t_grid)
-    #
-    while t_win == 0:
-        if t_turn == 1:
-            t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
-        else:
-            t_win, t_turn = ticTacToe.main_make_move(t_win, t_grid, t_gridarray, t_turn, t_wins)
-    # Output
-    if t_win == 1:
-        if t_turn == 1:
-            print('Player 1 wins!')
-        else:
-            print('Player 2 won!')
-    # Add something to do it again.
-
-if m_game == 3:
-    pass
 

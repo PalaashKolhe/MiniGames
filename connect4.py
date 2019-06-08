@@ -40,7 +40,7 @@ def makemove(player, column,c_gridarray, c_length, c_height):
                     c_gridarray[i][column-1] = 'O'
                 done = 1
 
-                return i, column -1 # to check if c_win
+                return column -1, i # to check if c_win
                 break
     return moveX, moveY
 
