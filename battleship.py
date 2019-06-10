@@ -252,7 +252,7 @@ for i in range(len(letters)):
     for j in range(len(numbers)):
         var = str(letters[i]) + str(numbers[j])
         positions.append(var)
-'''
+
 ### MAIN CODE STARTS HERE ###
 ### Inputs
 carrier1 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-A5) of where you want to place the aircraft carrier (AAAAA): ')), 5), 5, 'human'), 5, 'human')
@@ -286,32 +286,33 @@ shipPlacement(sub2, 3, 'D', gridPlayer2)
 
 destroyer2 = chkSpot(chkSpaces([random.choice(positions), '-',  random.choice(letters)], 2, 'ai'), 2, 'ai')
 shipPlacement(destroyer2, 2, 'E', gridPlayer2)
-'''
+
+displayGrid()
+
 #### GAMEPLAY STARTS HERE ####
 usrArray = []
 compArray = []
 
-usrPoints = 0
-compPoints = 0
-turn = 0
+sunk = []
+unsunk = []
 
-hit = []
+aiGrid = []
+
+for i in range(0, 10):
+    aiGrid.append([])
+    for j in range(1, 11):
+        aiGrid[i].append([gridPlayer2[i + 1][j]])
+
+for i in range(len(aiGrid)):
+    print(aiGrid[i])
 
 usrMove = chk10(list(chkPosition(input("Attack co-ordinates (Eg. A1): "))))
 usrArray.append(''.join(usrMove))
 
-if hit == '':
-    compMove = chk10(list(''.join(random.choices(positions))))
+if len(unsunk) == 0:
+    compMove = chk10(list(random.choice(positions)))
     compArray.append(''.join(compMove))
-elif turn == 0:
-    compMove = hit[0], int(hit[1]) + 1
-    compArray.append(''.join(compMove))
-    hit = []
-    turn = 1
-elif turn == 1:
-    compMove = hit[0], int(hit[1]) - 2
-    compArray.append(''.join(compMove))
-    hit = []
+
 
 print(usrArray)
 print(compArray)
@@ -323,23 +324,41 @@ for i in range(len(gridPlayer2)): ## Usr move
                 gridPlayer1[i][j] = 'X' ### 'X' for usr attack
                 gridPlayer2[i][j] = 'O' ### 'O' for computers grid being attacked
                 displayGrid()
-                if gridPlayer2[i][j] in ('A', 'B', 'D', 'C', 'E'):
+                if gridPlayer2[i][j] in ('A', 'B', 'C', 'D', 'E'):
                     print('HIT')
-                    usrPoints += 1
                 else:
                     print('MISS')
 
-for i in range(len(gridPlayer1)): ## AI move
+for i in range(len(gridPlayer1)):
     if compMove[0] == gridPlayer1[i][0]:
         for j in range(len(gridPlayer1[i])):
             if int(compMove[1]) == j:
-                gridPlayer2[i][j] = 'X'  ### 'X' for comp attack
-                gridPlayer1[i][j] = 'O'  ### 'O' for users grid being attacked
+                gridPlayer2[i][j] = 'X'
+                gridPlayer1[i][j] = 'O'
                 displayGrid()
                 if gridPlayer1[i][j] in ('A', 'B', 'C', 'D', 'E'):
-                    compPoints += 1
-                    hit.append(gridPlayer1[i][0], j)
-                else:
-                    print('MISS')
+                    unsunk.append(gridPlayer1[i][0], j)
+
 
 ### Outputs
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
