@@ -15,6 +15,9 @@ def makemove(player,num,grid,gridarray):
     else:
         mark = 'O'
     #
+    if grid[num] in ['X','O']:
+        usr = int(input('Space not avaliable, choose something else: '))
+        return makemove(player, usr, grid, gridarray)
     grid[num] = mark
     #
 
@@ -80,23 +83,4 @@ def check_if_spot_open(num): # Doesnt work idk why
 ###########################
 # ------ Main code ------ #
 ###########################
-'''
-start()
-printgrid()
-# Input + Processing
-while win == 0:
-
-    if turn == 0:
-        main_make_move()
-    else:
-        main_make_move()
-
-# Output
-if win == 1:
-    if turn == 1:
-        print('Player 1 won! ')
-    else:
-        print('Player 2 won! ')
-############################
-'''
 

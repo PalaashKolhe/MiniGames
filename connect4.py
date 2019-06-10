@@ -30,19 +30,25 @@ def printgrid(c_length, c_grid, c_gridarray,c_border):
     print(c_border[0])
 
 def makemove(player, column,c_gridarray, c_length, c_height):
-    done = 0
-    while done == 0:
-        for i in range(c_height-1,-1,-1):
-            if c_gridarray[i][column-1] == ' ':
-                if player == 1:
-                    c_gridarray[i][column-1] = 'X'
-                else:
-                    c_gridarray[i][column-1] = 'O'
-                done = 1
+    full = 0
+    if c_gridarray[0][column-1] == ' ':
+        done = 0
+        while done == 0:
+            for i in range(c_height - 1, -1, -1):
+                if c_gridarray[i][column - 1] == ' ':
+                    if player == 1:
+                        c_gridarray[i][column - 1] = 'X'
+                    else:
+                        c_gridarray[i][column - 1] = 'O'
+                    done = 1
 
-                return column -1, i # to check if c_win
-                break
-    return moveX, moveY
+                    return column - 1, i  # to check if c_win
+                    break
+        return moveX, moveY
+    else:
+        usr = int(input('That column is full, so choose another move: '))
+        return makemove(player, usr, c_gridarray, c_length, c_height)
+
 
 def checkwin(player, Y, X, c_win, c_height, c_length, c_gridarray):
     if player == 1:
@@ -94,28 +100,3 @@ def main_makemove(player,c_gridarray, c_length, c_height, c_win, c_turn, c_grid,
         c_turn += 1
         c_turn = c_turn%2 # this way I can have 1 function to get both the players moves
     return X, Y, c_turn, c_win
-
-##### - Main Code - #####
-'''
-# Setup
-c_length = int(input('Length: '))
-c_height = int(input('Heigth: '))
-creategrid(c_length,c_height)
-if len(c_border) == 0:
-    createborder(c_length)
-printgrid()
-# Gameplay
-while c_win == 0:
-    if c_turn == 0:
-        main_makemove(1)
-    else:
-        main_makemove(2)
-# Output
-if c_win != 0:
-    if c_win == 1:
-        print('Player 1 wins! ')
-    else:
-        print('Player 2 wins! ')
-
-############## DONE !!! ##############
-'''

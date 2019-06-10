@@ -11,24 +11,7 @@ import connect4, ticTacToe
 
 game = 0
 main_game = 0
-    # Connect 4 variables
-c_gridarray = []
-c_grid = []
-c_border = []
-c_turn = 0
-c_win = 0
-    # Tic-Tac-Toe
-t_grid = ['0','1','2','3','4','5','6','7','8','9']
-t_gridarray = [
-    [t_grid[7], '|',t_grid[8], '|',t_grid[9]],
-    ['----------'],
-    [t_grid[4], '|',t_grid[5], '|',t_grid[6]],
-    ['----------'],
-    [t_grid[1], '|',t_grid[2], '|',t_grid[3]]
-]
-t_wins = ((7,4,1),(8,5,2),(9,6,3),(4,5,6),(7,8,9),(1,2,3),(7,5,3),(1,5,9))
-t_win = 0
-t_turn = 1
+
     # Battle ship stuff
 
 
@@ -42,7 +25,9 @@ def intro():
 Welcome to MiniGame! 
     ''')
 def main_menu():
-    print('''Which game would you like to play?
+    print('''
+Which game would you like to play?
+
 1) Connect-4
 2) Tic-Tac-Toe
 3) Coming soon
@@ -66,8 +51,20 @@ def again_for_every_game():
 # ------ Main code ------ #
 ###########################
 while main_game == 0: #### DOESN'T WORK
+
     game = main_menu()
+
     while game == 1: # CONNECT-4
+
+
+        # Variables
+
+        c_gridarray = []
+        c_grid = []
+        c_border = []
+        c_turn = 0
+        c_win = 0
+
          # Setup the Connect 4 grid
 
         c_length = int(input('Length of Connect-4 grid: '))
@@ -80,6 +77,7 @@ while main_game == 0: #### DOESN'T WORK
         # Gameplay
 
         while c_win == 0:
+
             if c_turn == 0:
                 X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn, c_grid, c_border)
             else:
@@ -96,7 +94,23 @@ while main_game == 0: #### DOESN'T WORK
         again_for_every_game()
 
     while game == 2: # TIC-TAC-TOE
+
+        # Variables
+
+        t_grid = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+        t_gridarray = [
+            [t_grid[7], '|', t_grid[8], '|', t_grid[9]],
+            ['----------'],
+            [t_grid[4], '|', t_grid[5], '|', t_grid[6]],
+            ['----------'],
+            [t_grid[1], '|', t_grid[2], '|', t_grid[3]]
+        ]
+        t_wins = ((7, 4, 1), (8, 5, 2), (9, 6, 3), (4, 5, 6), (7, 8, 9), (1, 2, 3), (7, 5, 3), (1, 5, 9))
+        t_win = 0
+        t_turn = 1
+
         #
+
         ticTacToe.start()
         ticTacToe.printgrid(t_gridarray, t_grid)
         #
@@ -111,7 +125,8 @@ while main_game == 0: #### DOESN'T WORK
                 print('Player 1 wins!')
             else:
                 print('Player 2 won!')
-        # Add something to do it again.
+
+        again_for_every_game()
 
     while game == 3:
         pass
