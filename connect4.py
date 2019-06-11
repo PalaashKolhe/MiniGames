@@ -30,7 +30,6 @@ def printgrid(c_length, c_grid, c_gridarray,c_border):
     print(c_border[0])
 
 def makemove(player, column,c_gridarray, c_length, c_height):
-    full = 0
     if c_gridarray[0][column-1] == ' ':
         done = 0
         while done == 0:
@@ -49,6 +48,12 @@ def makemove(player, column,c_gridarray, c_length, c_height):
         usr = int(input('That column is full, so choose another move: '))
         return makemove(player, usr, c_gridarray, c_length, c_height)
 
+def chkconnect4(usr,c_length):
+    if usr <= c_length and usr > 0:
+        return usr
+    else:
+        usr_1 = int(input('Valid column: '))
+        return chkconnect4(usr_1, c_length)
 
 def checkwin(player, Y, X, c_win, c_height, c_length, c_gridarray):
     if player == 1:
@@ -90,7 +95,7 @@ def checkwin(player, Y, X, c_win, c_height, c_length, c_gridarray):
 
 def main_makemove(player,c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border):
     print('Player',str(player),"'s c_turn")
-    col = int(input('Which column would you like to place the chip player: '))
+    col = chkconnect4(int(input('Which column would you like to place the chip player: ')), c_length)
     X, Y = makemove(player,col,c_gridarray, c_length, c_height)
     printgrid(c_length, c_grid, c_gridarray,c_border)
     c_win = checkwin(player,Y, X, c_win, c_height, c_length, c_gridarray)

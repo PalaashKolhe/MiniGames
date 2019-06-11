@@ -31,6 +31,7 @@ Which game would you like to play?
 1) Connect-4
 2) Tic-Tac-Toe
 3) Coming soon
+4) Exit
     ''')
     m_game = int(input('>>> '))
     return m_game
@@ -47,9 +48,11 @@ def again_for_every_game():
         game = 0
     elif usr == '3':
         game == 999
+
 ###########################
 # ------ Main code ------ #
 ###########################
+
 while main_game == 0: #### DOESN'T WORK
 
     game = main_menu()
@@ -131,5 +134,8 @@ while main_game == 0: #### DOESN'T WORK
     while game == 3:
         pass
         break
+
+    if game == 4:
+        main_game = 1
 
 
