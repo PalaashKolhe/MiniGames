@@ -1,14 +1,8 @@
 '''
-Shaishav Shah & Palaash Kolhe
-Tic-Tac-Toeeeeeee
+Shaishav Shah
+Tic-Tac-Toe
 2019-06-04
 '''
-### Variables ###
-
-
-
-### Subroutines ###
-
 def makemove(player,num,grid,gridarray):
     if player == 1:
         mark = 'X'
@@ -53,6 +47,13 @@ Welcome to Tic-Tac-Toe !
 We hope you know how to play!
 ''')
 
+def chktic(move,grid):
+    if move in [1,2,3,4,5,6,7,8,9]:
+        return move
+    else:
+        usr = int(input('Valid spot: '))
+        return chktic(usr, grid)
+
 def main_make_move(win, grid, gridarray, turn, wins):
     #
     if turn == 0:
@@ -61,7 +62,7 @@ def main_make_move(win, grid, gridarray, turn, wins):
         print('Player',str(turn),"'s turn")
     #
     move = int(input('Your move: '))
-    makemove(turn, move,grid,gridarray)
+    makemove(turn, chktic(move,grid),grid,gridarray)
     printgrid(gridarray,grid)
     win_1 = checkwin(turn, win, grid, gridarray, wins)
     if win_1 == 0:
@@ -79,8 +80,4 @@ def check_if_spot_open(num): # Doesnt work idk why
     else:
         usr = int(input('Someone is already there, choose something else: '))
         return check_if_spot_open(usr)
-
-###########################
-# ------ Main code ------ #
-###########################
 
