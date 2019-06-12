@@ -53,7 +53,7 @@ def again_for_every_game():
 # ------ Main code ------ #
 ###########################
 
-while main_game == 0: #### DOESN'T WORK
+while main_game == 0:
 
     game = main_menu()
 
