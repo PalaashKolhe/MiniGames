@@ -81,3 +81,4 @@ def check_if_spot_open(num): # Doesnt work idk why
         usr = int(input('Someone is already there, choose something else: '))
         return check_if_spot_open(usr)
 
+##########################################################################################

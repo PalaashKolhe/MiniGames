@@ -74,7 +74,7 @@ def checkwin(player, Y, X, c_win, c_height, c_length, c_gridarray):
                     break
     # Vertical
     if c_win == 0:
-        if Y <= 1:
+        if Y <= (6-4):
             if c_gridarray[Y][X]==c_gridarray[Y+1][X]==c_gridarray[Y+2][X]==c_gridarray[Y+3][X] == mark:
                 c_win = 1
     # / direction
