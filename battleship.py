@@ -4,8 +4,6 @@ author: Palaash Kolhe
 date created: 2019-06-03
 '''
 
-import random
-
 gridPlayer1 = [
     [' ', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
     ['A', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '],
@@ -141,9 +139,11 @@ def shipPlacement(shipArray, length, letter, grid):
                     if len(shipArray[0]) == 2:
                         for j in range(length):
                             grid[i+j][int(shipArray[0][1])] = letter
-                        else:
-                            for j in range(length):
-                                grid[i+j][10] = letter
+                    else:
+                        for j in range(length):
+                            grid[i+j][10] = letter
+
+
 
 def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,E
     if turn == 'human':
