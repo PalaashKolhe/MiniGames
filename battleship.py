@@ -60,6 +60,20 @@ gridPlayer2Attack = [
     ['J', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']
 ]
 ## Subroutines
+def passwordCheck(password, player):
+    if player == 1:
+        if password != usr1Password:
+            password1 = input('Wrong Password! Try Again: ')
+            return passwordCheck(password1, 1)
+        else:
+            return password
+    else:
+        if password != usr2Password:
+            password1 = input('Wrong Password! Try Again: ')
+            return passwordCheck(password1, 2)
+        else:
+            return password
+
 def chkCoord(shipArray, length):
     if shipArray[0][0] == shipArray[1][0]:
         if len(shipArray[1]) == 2:
@@ -110,6 +124,10 @@ def turnToList(ship):
     ship = list(ship)
     ship = ''.join(ship)
     ship = ship.split('-')
+    if len(ship) != 2:
+        ship = input("Please enter valid co-ordinates: ")
+        return turnToList(ship)
+
 
     if len(ship[1]) != 1:
         if ship[0] not in positions or ship[1] not in positions:
@@ -143,8 +161,6 @@ def shipPlacement(shipArray, length, letter, grid):
                         for j in range(length):
                             grid[i+j][10] = letter
 
-
-
 def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,E
     if turn == 'human':
         for i in range(len(gridPlayer1)):
@@ -152,13 +168,13 @@ def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,
                 for j in range(length):
                     if len(ship[0]) == 2:
                         if gridPlayer1[i][int(ship[0][1]) + j] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
                     else:
                         if gridPlayer1[i][10 + j] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
@@ -168,13 +184,13 @@ def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,
                 for j in range(length):
                     if len(ship[0]) == 2:
                         if gridPlayer1[i + j][int(ship[0][1])] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
                     else:
                         if gridPlayer1[i + j][10] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
@@ -185,13 +201,13 @@ def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,
                 for j in range(length):
                     if len(ship[0]) == 2:
                         if gridPlayer2[i][int(ship[0][1]) + j] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
                     else:
                         if gridPlayer2[i][10 + j] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
@@ -201,32 +217,32 @@ def chkSpot(ship, length, turn): ## check to see if spot is filled with A,B,C,D,
                 for j in range(length):
                     if len(ship[0]) == 2:
                         if gridPlayer2[i + j][int(ship[0][1])] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
                     else:
                         if gridPlayer2[i + j][10] in ('A', 'B', 'C', 'D', 'E'):
-                            ship = chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length)
+                            ship = chkSpaces(chkCoord(turnToList(input("These co-ordinates are filled! Enter different co-ordinates: ")), length), length, turn)
                             return chkSpot(ship, length, turn)
                         else:
                             pass
                 return ship
 
 def displayGrid1():
-    print('''Player 1 -''')
+    print('''Player 1 (Defense Grid) -''')
     for i in range(len(gridPlayer1)):
         print(' | '.join(gridPlayer1[i]))
-
+    print('''''')
     print('''Attack Grid -''')
     for i in range(len(gridPlayer1Attack)):
         print(' | '.join(gridPlayer1Attack[i]))
 
 def displayGrid2():
-    print('''Player 2 -''')
+    print('''Player 2 (Defense Grid) -''')
     for i in range(len(gridPlayer2)):
         print(' | '.join(gridPlayer2[i]))
-
+    print('''''')
     print('''Attack Grid -''')
     for i in range(len(gridPlayer1Attack)):
         print(' | '.join(gridPlayer2Attack[i]))
@@ -368,19 +384,19 @@ print('''Player 1 turn around now!
 usr2Password = input("(Player 2) Enter your password: ")
 
 carrier2 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-A5) of where you want to place the aircraft carrier (AAAAA): ')), 5), 5, 'human'), 5, 'player2')
-shipPlacement(carrier1, 5, 'A', gridPlayer2)
+shipPlacement(carrier2, 5, 'A', gridPlayer2)
 
 batship2 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-D1) of where you want to place the battleship (BBBB): ')), 4), 4, 'human'), 4, 'player2')
-shipPlacement(batship1, 4, 'B', gridPlayer2)
+shipPlacement(batship2, 4, 'B', gridPlayer2)
 
 cruiser2 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-A3) of where you want to place the cruiser (CCC): ')), 3), 3, 'human'), 3, 'player2')
-shipPlacement(cruiser1, 3, 'C', gridPlayer2)
+shipPlacement(cruiser2, 3, 'C', gridPlayer2)
 
 sub2 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. D3-F3) of where you want to place the submarine (DDD): ')), 3), 3, 'human'), 3, 'player2')
-shipPlacement(sub1, 3, 'D', gridPlayer2)
+shipPlacement(sub2, 3, 'D', gridPlayer2)
 
 destroyer2 = chkSpot(chkSpaces(chkCoord(turnToList(input('Enter co-ordinates from start to finish (Eg. A1-A2) of where you want to place the destroyer (EE): ')), 2), 2, 'human'), 2, 'player2')
-shipPlacement(destroyer1, 2, 'E', gridPlayer2)
+shipPlacement(destroyer2, 2, 'E', gridPlayer2)
 
 print('''Here are where you have placed your ships - ''')
 displayGrid2()
@@ -398,24 +414,12 @@ usr2Array = []
 usr1Points = 0
 usr2Points = 0
 
-def passwordCheck(password, player):
-    if player == 1:
-        if password != usr1Password:
-            password = ('Wrong Password! Try Again: ')
-            return passwordCheck(password, player)
-        else:
-            return password
-    else:
-        if password != usr2Password:
-            password = ('Wrong Password! Try Again: ')
-            return passwordCheck(password, player)
-        else:
-            return password
-
 while usr1Points < 16 or usr2Points < 16:
     passwordCheck1 = passwordCheck(input("Enter your password player 1: "), 1)
 
-    usr1Move = chkGameplay(chk10(list(chkPosition(input("Attack co-ordinates (Eg. A1): ")))), 'Player1')
+    displayGrid1()
+
+    usr1Move = chkGameplay(chk10(list(chkPosition(input("Choose Attack co-ordinates from grid above (Eg. A1): ")))), 'Player1')
     usr1Array.append(''.join(usr1Move))
 
     for i in range(len(gridPlayer2)): ## Player 1
@@ -431,14 +435,19 @@ while usr1Points < 16 or usr2Points < 16:
                         print('''
                         MISS
                         ''')
-                    gridPlayer1Attack[i][j] = 'X' ### 'X' for usr attack
+
                     if gridPlayer2[i][j] in ('A', 'B', 'C', 'D', 'E'):
                         gridPlayer2[i][j] = 'S'
+                        gridPlayer1Attack[i][j] = 'X'
                     else:
                         gridPlayer2[i][j] = 'O' ### 'O' for computers grid being attacked
+                        gridPlayer1Attack[i][j] = 'O'
                     displayGrid1()
 
-    choose = input("Press any key when you are done looking at your ship placement: ")
+    if usr1Points > 16:
+        break
+
+    choose = input("Press any key when you are done looking at your ship/attack placement: ")
 
     for i in range(100):
         print('''
@@ -446,7 +455,9 @@ while usr1Points < 16 or usr2Points < 16:
 
     passwordCheck2 = passwordCheck(input("Enter your password player 2: "), 2)
 
-    usr2Move = chkGameplay(chk10(list(chkPosition(input("Attack co-ordinates (Eg. A1): ")))), 'Player2')
+    displayGrid2()
+
+    usr2Move = chkGameplay(chk10(list(chkPosition(input("Choose Attack co-ordinates from grid above (Eg. A1): ")))), 'Player2')
     usr2Array.append(''.join(usr2Move))
 
     for i in range(len(gridPlayer1)): ## Player 2
@@ -462,12 +473,16 @@ while usr1Points < 16 or usr2Points < 16:
                         print('''
                         MISS
                         ''')
-                    gridPlayer2Attack[i][j] = 'X'
                     if gridPlayer1[i][j] in ('A', 'B', 'C', 'D', 'E'):
                         gridPlayer1[i][j] = 'S'
+                        gridPlayer2Attack[i][j] = 'X'
                     else:
                         gridPlayer1[i][j] = 'O'
+                        gridPlayer2Attack[i][j] = 'O'
                     displayGrid2()
+
+    if usr2Points > 16:
+        break
 
     choose = input("Press any key when you are done looking at your ship placement: ")
 
@@ -476,6 +491,8 @@ while usr1Points < 16 or usr2Points < 16:
             ''')
 
 ### Outputs
+
+print('''''')
 
 if usr1Points > 16:
     print("Player 1 Wins!")
