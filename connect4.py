@@ -26,7 +26,7 @@ def printgrid(c_length, c_grid, c_gridarray,c_border):
     print(c_border[0])
     print('|',ind,'|')
     for i in range(len(c_gridarray)):
-        print(c_gridarray[i])
+        print('|',' || '.join(c_gridarray[i]),'|')
     print(c_border[0])
 
 def makemove(player, column,c_gridarray, c_length, c_height):

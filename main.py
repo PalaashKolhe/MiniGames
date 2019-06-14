@@ -82,9 +82,9 @@ while main_game == 0:
         while c_win == 0:
 
             if c_turn == 0:
-                X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn, c_grid, c_border)
+                X, Y, c_turn, c_win = connect4.main_makemove(1,c_gridarray, c_length, c_height,c_win,c_turn , c_grid, c_border)
             else:
-                X, Y, c_turn, c_win = connect4.main_makemove(2, c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border)
+                 X, Y, c_turn, c_win = connect4.main_makemove(2, c_gridarray, c_length, c_height, c_win, c_turn, c_grid, c_border)
 
         # Output
 
@@ -138,5 +138,3 @@ while main_game == 0:
 
     if game == 4:
         main_game = 1
-
-
